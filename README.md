@@ -6,10 +6,15 @@ A simple library, and command-line tool, to export your team's entire history us
 
 ## Usage
 
+```bash
+git clone git@github.com:hfaran/slack-auto-export.git
+cd slack-auto-export
+```
+
 ### Command-Line Tool
 
 ```bash
 pip install -r requirements.txt
 ./slack_auto_export.py --help
-/slack_auto_export.py -t your-api-token -o /path/to/output/dir
+./slack_auto_export.py -t your-api-token -o /path/to/output/dir
 ```
