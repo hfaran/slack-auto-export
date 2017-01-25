@@ -34,8 +34,13 @@ class SlackAutoExport(object):
                     len(messages)
                 ))
 
-            latest = m.body['messages'][-1]['ts']
             has_more = m.body["has_more"]
+            # Handle case where there are 0 messages
+            if not m.body['messages']:
+                if has_more:
+                    raise Exception("has_more is true, but we received no messages in messages")
+                break
+            latest = m.body['messages'][-1]['ts']
             time.sleep(request_pause_period)
         return messages
 
