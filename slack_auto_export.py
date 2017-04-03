@@ -29,18 +29,14 @@ class SlackAutoExport(object):
             )
             messages.extend(m.body['messages'])
             if self.verbose:
-                print("{}: Retrieved {} messages".format(
+                print("{}: Retrieved {} messages from channel {}".format(
                     self.__class__.__name__,
-                    len(messages)
+                    len(messages), [c_name for c_name, c in self.channels.items() if c['id'] == channel_id],
                 ))
 
+            if m.body['messages']:
+                latest = m.body['messages'][-1]['ts']
             has_more = m.body["has_more"]
-            # Handle case where there are 0 messages
-            if not m.body['messages']:
-                if has_more:
-                    raise Exception("has_more is true, but we received no messages in messages")
-                break
-            latest = m.body['messages'][-1]['ts']
             time.sleep(request_pause_period)
         return messages
 
